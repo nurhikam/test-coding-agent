@@ -1,5 +1,5 @@
 identification division.
-program-id. hello-sum.
+program-id. ganti-judul.
 
 data division.
 working-storage section.
@@ -12,5 +12,5 @@ main-logic.
         add ws-counter to ws-sum
     end-perform.
 
-    display "The sum of numbers from 1 to 20 is: " ws-sum.
+    display "ganti judul: " ws-sum.
     stop run.
