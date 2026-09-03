@@ -10,7 +10,7 @@ working-storage section.
 
 procedure division.
 main-logic.
-    perform varying ws-counter from 1 by 1 until ws-counter > 20
+    perform varying ws-counter from 1 by 1 until ws-counter > 30
         compute ws-temp-sum = ws-sum + ws-counter
         if ws-temp-sum > ws-max-sum
             display "Error: Sum overflow!"
@@ -19,5 +19,5 @@ main-logic.
         add ws-counter to ws-sum
     end-perform.
 
-    display "The sum of numbers from 1 to 20 is: " ws-sum.
+    display "The sum of numbers from 1 to 30 is: " ws-sum.
     stop run.
