@@ -23,6 +23,49 @@ const reviewQueueApi = {
         });
       }, 800);
     });
+  },
+
+  fetchCaseDetails: async (id) => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve({
+          data: {
+            id,
+            customerName: 'John Doe',
+            nik: '3201010000000001',
+            submittedAt: new Date().toISOString(),
+            status: 'PENDING_MANUAL_REVIEW',
+            score: '0.85',
+            ktpImageUrl: 'https://via.placeholder.com/600x400?text=KTP+Photo',
+            selfieImageUrl: 'https://via.placeholder.com/600x400?text=Selfie+Photo',
+            extractedData: {
+              name: 'John Doe',
+              nik: '3201010000000001',
+              birthDate: '1990-01-01',
+              address: 'Jl. Sudirman No. 1, Jakarta'
+            }
+          }
+        });
+      }, 500);
+    });
+  },
+
+  approveCase: async (id) => {
+    return new Promise((resolve) => {
+      setTimeout(() => resolve({ success: true }), 500);
+    });
+  },
+
+  rejectCase: async (id, reason) => {
+    return new Promise((resolve) => {
+      setTimeout(() => resolve({ success: true }), 500);
+    });
+  },
+
+  requestReupload: async (id, field) => {
+    return new Promise((resolve) => {
+      setTimeout(() => resolve({ success: true }), 500);
+    });
   }
 };
 

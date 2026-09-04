@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import LoginPage from './components/Login/LoginPage';
 import ReviewQueue from './components/ReviewQueue/ReviewQueue';
+import CaseDetail from './components/CaseDetail/CaseDetail';
 
 const DashboardPlaceholder = () => (
   <div className="p-8">
@@ -17,6 +18,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/dashboard" element={<DashboardPlaceholder />} />
         <Route path="/review-queue" element={<ReviewQueue />} />
+        <Route path="/case/:id" element={<CaseDetail />} />
         <Route path="/" element={<Navigate to="/login" replace />} />
       </Routes>
     </BrowserRouter>
