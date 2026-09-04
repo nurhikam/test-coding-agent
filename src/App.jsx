@@ -4,6 +4,7 @@ import LoginPage from './components/Login/LoginPage';
 import ReviewQueue from './components/ReviewQueue/ReviewQueue';
 import AnalyticsDashboard from './components/AnalyticsDashboard/AnalyticsDashboard';
 import CaseDetail from './components/CaseDetail/CaseDetail';
+import CorporateSettings from './components/Corporate/CorporateSettings';
 
 const DashboardPlaceholder = () => (
   <div className="p-8">
@@ -20,6 +21,7 @@ function App() {
         <Route path="/dashboard" element={<AnalyticsDashboard />} />
         <Route path="/review-queue" element={<ReviewQueue />} />
         <Route path="/case/:id" element={<CaseDetail />} />
+        <Route path="/corporate/settings" element={<CorporateSettings />} />
         <Route path="/" element={<Navigate to="/login" replace />} />
       </Routes>
     </BrowserRouter>
