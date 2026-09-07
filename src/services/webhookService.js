@@ -1,9 +1,5 @@
-const API_BASE_URL = '/api/corporate/webhook';
-
-export const webhookService = {
+const webhookService = {
   updateConfig: async (config) => {
-    // Simulate API call
-    console.log('Updating webhook configuration:', config);
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (config.url && config.secret) {
@@ -16,7 +12,6 @@ export const webhookService = {
   },
 
   getConfig: async () => {
-    // Simulate fetching current config
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve({
@@ -25,5 +20,31 @@ export const webhookService = {
         });
       }, 1000);
     });
+  },
+
+  sendNotification: async (callbackUrl, payload) => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (!callbackUrl) {
+          reject({ code: 'ERR-WH-002', message: 'Callback URL missing' });
+        } else if (callbackUrl.includes('fail')) {
+          reject({ code: 'ERR-WH-001', message: 'Max retries exceeded' });
+        } else {
+          const signature = 'hmac_sha256_mock_signature';
+          resolve({
+            status: 'sent',
+            signature,
+            payload,
+          });
+        }
+      }, 1000);
+    });
+  },
+
+  calculateRetryInterval: (attempt) => {
+    const intervals = [5 * 60 * 1000, 15 * 60 * 1000, 60 * 60 * 1000];
+    return intervals[attempt] || intervals[intervals.length - 1];
   }
 };
+
+export default webhookService;

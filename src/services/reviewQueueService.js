@@ -50,15 +50,27 @@ const reviewQueueApi = {
     });
   },
 
-  approveCase: async (id) => {
-    return new Promise((resolve) => {
-      setTimeout(() => resolve({ success: true }), 500);
+  approveCase: async (id, userRole) => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (userRole !== 'REVIEWER' && userRole !== 'SUPER_ADMIN') {
+          reject({ code: 'ERR-AUTH-001', message: 'Unauthorized: Insufficient permissions' });
+        } else {
+          resolve({ success: true, final_decision: 'APPROVED', reason_code: 'VALID_DOCS' });
+        }
+      }, 500);
     });
   },
 
-  rejectCase: async (id, reason) => {
-    return new Promise((resolve) => {
-      setTimeout(() => resolve({ success: true }), 500);
+  rejectCase: async (id, reasonCode, userRole) => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (userRole !== 'REVIEWER' && userRole !== 'SUPER_ADMIN') {
+          reject({ code: 'ERR-AUTH-001', message: 'Unauthorized: Insufficient permissions' });
+        } else {
+          resolve({ success: true, final_decision: 'REJECTED', reason_code: reasonCode });
+        }
+      }, 500);
     });
   },
 
