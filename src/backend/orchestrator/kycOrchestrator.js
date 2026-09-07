@@ -2,11 +2,14 @@
  * KYC Orchestrator Logic
  * Workflow: OCR -> Liveness -> Matching -> Dukcapil
  */
+import { cobolBridgeService } from '../../services/cobolBridgeService';
+
 export const KYC_PIPELINE = [
   { stage: 'OCR', critical: false },
   { stage: 'Liveness', critical: true },
   { stage: 'Matching', critical: false },
   { stage: 'Dukcapil', critical: false },
+  { stage: 'COBOL_SCORING', critical: true },
 ];
 
 export const kycOrchestrator = {
@@ -48,10 +51,18 @@ export const kycOrchestrator = {
 };
 
 async function executeStage(stage, data, previousResults) {
-  // Simulate AI service calls
+  if (stage === 'COBOL_SCORING') {
+    const scoring = await cobolBridgeService.calculateScore(data);
+    return { 
+      success: scoring.grade !== 'C', 
+      score: scoring.score, 
+      grade: scoring.grade, 
+      message: `COBOL Score: ${scoring.score} (${scoring.grade})` 
+    };
+  }
+
   return new Promise((resolve) => {
     setTimeout(() => {
-      // Simulate occasional failure for Liveness to test critical path
       if (stage === 'Liveness' && Math.random() < 0.2) {
         resolve({ success: false, score: 0.4, message: 'Liveness check failed' });
       } else {

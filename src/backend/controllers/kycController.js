@@ -1,6 +1,7 @@
 import { validateOAuth2Token } from '../middleware/authMiddleware';
 import { rateLimiter } from '../middleware/rateLimitMiddleware';
 import { kycOrchestrator } from '../orchestrator/kycOrchestrator';
+import { cobolBridgeService } from '../../services/cobolBridgeService';
 
 /**
  * KYC Controller to handle B2B requests
@@ -14,6 +15,18 @@ export const kycController = {
         return res.status(400).json({
           error: 'Missing required payload fields: documentImage or livenessVideo'
         });
+      }
+
+      // Use COBOL Bridge for NIK Validation
+      if (payload.nik) {
+        const nikValidation = await cobolBridgeService.validateNIK(payload.nik);
+        if (nikValidation.status === 'INVALID') {
+          return res.status(422).json({
+            status: 'Rejected',
+            error_code: 'INVALID_NIK_FORMAT',
+            message: `NIK validation failed via ${nikValidation.source}`
+          });
+        }
       }
 
       console.log('KYC Submission received for client:', req.client.clientId);
