@@ -1,4 +1,5 @@
 import { dukcapilAdapter } from '../services/dukcapilAdapter';
+import { GATEWAY_ERRORS } from '../gateway/gatewayConfig';
 
 /**
  * Dukcapil Controller
@@ -30,9 +31,20 @@ export const dukcapilController = {
       }
       
       return res.status(500).json({
-        error_code: 'ERR-DUK-000',
+        error_code: GATEWAY_ERRORS.INTERNAL_ERROR.code,
         message: 'Internal Server Error'
       });
     }
+  }
+};
+
+/**
+ * Dukcapil Router configuration
+ */
+export const dukcapilRoutes = {
+  '/internal/dukcapil/verify': {
+    method: 'POST',
+    middleware: [],
+    handler: dukcapilController.verifyNIK
   }
 };

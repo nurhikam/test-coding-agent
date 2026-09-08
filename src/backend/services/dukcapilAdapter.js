@@ -7,11 +7,11 @@ export const dukcapilAdapter = {
     try {
       // In a real scenario, this would be a call to the external Dukcapil API
       // URL would be retrieved from environment variables or config
-      const response = await fetch('https://api.dukcapil.kemendagri.go.id/verify', {
+      const response = await fetch(process.env.DUKCAPIL_API_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer DUKCAPIL_INTERNAL_TOKEN'
+          'Authorization': `Bearer ${process.env.DUKCAPIL_API_TOKEN}`
         },
         body: JSON.stringify({ nik })
       });
@@ -20,7 +20,7 @@ export const dukcapilAdapter = {
         if (response.status === 503 || response.status === 504) {
           throw { code: 'ERR-DUK-001', message: 'Service unavailable' };
         }
-        throw { code: 'ERR-DUK-000', message: 'Unknown Dukcapil error' };
+        throw { code: 'ERR-GW-000', message: 'Unknown Dukcapil error' };
       }
 
       return await response.json();

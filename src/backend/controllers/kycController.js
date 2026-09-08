@@ -1,7 +1,6 @@
 import { validateOAuth2Token } from '../middleware/authMiddleware';
 import { rateLimiter } from '../middleware/rateLimitMiddleware';
 import { kycOrchestrator } from '../orchestrator/kycOrchestrator';
-import { dukcapilController } from './dukcapilController';
 
 /**
  * KYC Controller to handle B2B requests
