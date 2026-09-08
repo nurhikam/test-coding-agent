@@ -1,0 +1,8 @@
+01  NPWP-REQUEST.
+    05  NPWP-NUMBER      PIC X(15).
+    05  CUSTOMER-ID      PIC X(20).
+
+01  NPWP-RESULT.
+    05  VALID-FLAG       PIC X(1) VALUE 'N'.
+    05  ERROR-CODE       PIC X(12).
+    05  ERROR-MESSAGE    PIC X(60).
